@@ -26,6 +26,19 @@ No, but it inserts values into the table.
 
 #Run
 
+python run.py [-h] -u userName -p password -l hostName -d databaseName [-t tableName]
+
+Enter connection details and table name
+
+- optional arguments:
+-  -h, --help       show this help message and exit
+-  -u userName      User name associated with MySql datbase
+-  -p password      Password used to connect to MySql database
+-  -l hostName      Name used to connect to MySql database
+- -d databaseName  Name of the database where table should be created
+-  -t tableName     Name of the database table. Default set to 'author'.
+
+
 Application is written in Python 3
 1. To run the application first install requirements.txt 
 2. python3 run.py --help to see command line help
