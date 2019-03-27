@@ -11,14 +11,21 @@ class connectionProperty:
         self.password = passw
         self.host = host
         self.database = databaseName
+   
+    def checkConnectionStatus(self):
+        try:
+            self.getConnection()
+            return True
+        except:
+            print("Connection to MySql has failed. Please check your connection string and try again")
+            return False
 
     def getConnection(self):
-
         conn = msql.connect(
             host=self.host,
-            user=self.name,
-            passwd=self.password,
-            database=self.database
+            user = self.name,
+            passwd = self.password,
+            database = self.database
         )
         return conn
 
@@ -26,6 +33,9 @@ class connectionProperty:
         query = "CREATE TABLE IF NOT EXISTS {} ({})".format(
             tableName, ",".join(data))
         conn = self.getConnection()
+        if conn is None:
+            print("Failed to connect to database")
+            return
         cur = conn.cursor()
         cur.execute(query)
         cur.close()

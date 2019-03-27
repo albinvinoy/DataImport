@@ -1,7 +1,8 @@
 # DataImport
 Application to create new MySql tables and import data
 
-#Assumptions
+# Assumptions
+
 In schema.csv integer has a width amount. If it follows the patters of Char and Boolean then program assumes the interger should not exceed given width. In MySql Int(k) is only used for zerofill.
 
 Since no table name is provided, it should be a user input or set a default value. 
@@ -10,5 +11,10 @@ If there are multiple schemas and data file then table name should be part of fi
 Selected database is MySql. Any database can work with this application with small changes. This is not a web application, but can be imported to Django easily.
 
 
+#Run the program
+Application is written in Python 3
+1. To run the application first install requirements.txt 
+2. python3 run.py --help to see commandline args
+3. run.py -u <username> -p <password> -l <hostname/connection> -d <database> [-t <tablename>]
 
 

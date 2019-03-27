@@ -2,14 +2,9 @@ import os
 import csv
 from schemaValide import *
 from tableOperations import *
+import argparse
 
-
-if __name__ == "__main__":
-
-    # initialize schemaFile
-    schemaFiles, dataFiles, schemaSave = [], [], {}
-    validator = schemaValidate()
-    operations = connectionProperty("loca", "234", "localhost", "testdb")
+def main():
     """
     Get all files from data_drop and seperate schema and data files
     """
@@ -64,3 +59,31 @@ if __name__ == "__main__":
                 temp.append(r[:w])
             datas.append(tuple(temp))
         operations.insertData(table_name, ",".join(tableNames), datas)
+
+
+if __name__ == "__main__":
+
+    #arguement parser to get usr args for connection details and table name
+    parser = argparse.ArgumentParser(description="Enter connection details and table name")
+    parser.add_argument('-u', metavar="userName", help="User name associated with MySql datbase", required=True)
+    parser.add_argument('-p', metavar="password", help="Password used to connect to MySql database", required=True)
+    parser.add_argument('-l', metavar="hostName", help="Name used to connect to MySql database", required=True)
+    parser.add_argument('-d', metavar="databaseName", help="Name of the database where table should be created", required=True)
+    parser.add_argument('-t', metavar="tableName", help="Name of the database table", required=False)
+
+    args = vars(parser.parse_args())
+
+    # initialize schemaFile
+    schemaFiles, dataFiles, schemaSave = [], [], {}
+    validator = schemaValidate()
+    # operations = connectionProperty("loca", "1234", "localhost", "testdb")
+    operations = connectionProperty(args['u'], args['p'], args['l'], args['d'])
+
+    validConnection = operations.checkConnectionStatus()
+    # check if connection is successful, if fails then exit display error message and exit the program.
+    if validConnection:
+        main()
+    else:
+        print("Closing program")
+
+    
