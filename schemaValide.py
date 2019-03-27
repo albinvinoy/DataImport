@@ -2,6 +2,7 @@ class schemaValidate:
     
     #A simple class to validate schema
     def __init__(self):
+        #currently supported options
         self.acceptParam = set(["INT", "INTEGER", "SMALLINT", "FLOAT", "CHAR", "VARCHAR"])
         self.noParam = set(["BOOL","BOOLEAN", "DATE", "TIME", "DATETIME", "TIMESTAMP", "YEAR"])
     

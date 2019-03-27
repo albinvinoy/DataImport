@@ -18,7 +18,7 @@ What type of database can I use?
 Selected database is MySql. Any database can work with this application with small changes. This is not a web application, but can be imported to Django easily.
 
 What if someone decides to change the schame to add more fields?
-Program accounts for additional column values in schama as long as the data.csv also reflects the changes.
+Program accounts for additional row in schama as long as the data.csv also reflects the changes.
 Ex. If we decide to add age to schema,(age, 2, INTEGER) then data should also contain age information.
 
 Should it overwrite a table with same name?
@@ -32,3 +32,20 @@ Application is written in Python 3
 3. python3 run.py -u username -p password -l hostname/connection -d database [-t tablename]
 
 
+# TEST
+
+python test.py -u userName -p password -l hostName -d databaseName -t tableName
+
+Enter connection details and table name
+
+optional arguments:
+  -h, --help       show this help message and exit
+  -u userName      User name associated with MySql datbase
+  -p password      Password used to connect to MySql database
+  -l hostName      Name used to connect to MySql database
+  -d databaseName  Name of the database where table should be created
+  -t tableName     Name of the database table
+
+If all tests pass then it prints "Test case passed"
+If any test fails then it prints "Test case failed"
+If there are any connection errors then error message will be displayed

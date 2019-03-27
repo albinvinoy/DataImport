@@ -14,10 +14,10 @@ class connectionProperty:
         #check if connection is successful
         try:
             self.getConnection()
-            return True
-        except:
+        except Exception as e:
             print("Connection to MySql has failed. Please check your connection string and try again")
             return False
+        return True
 
     def getConnection(self):
         #return -> connection object
@@ -65,3 +65,38 @@ class connectionProperty:
         finally:
             cur.close()
             conn.close()
+
+    def getTableData(self, tableName):
+        #return all data from table
+        conn = self.getConnection()
+        cur = conn.cursor()
+        result = None
+        query = "SELECT * FROM {}".format(tableName)
+        try:
+            cur.execute(query)
+            result = cur.fetchall()
+        except Exception as e:
+            print("Failed to get data from {}\n Detailed Error : ". format(tableName, str(e)))
+            return None
+        finally:
+            cur.close()
+            conn.close()
+            return result
+
+
+    def getSchema(self, tableName):
+        #get table schema
+        conn = self.getConnection()
+        cur = conn.cursor()
+        result = None
+        query = "DESC {}".format(tableName)
+        try:
+            cur.execute(query)
+            result = cur.fetchall()
+        except Exception as e:
+            print("Failed to get schema from {}\n Detailed Error : {}".format(tableName, str(e)))
+            return None
+        finally:
+            cur.close()
+            conn.close()
+            return result

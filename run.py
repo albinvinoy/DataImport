@@ -7,7 +7,6 @@ import argparse
 def main():
     
     #Get all files from data_drop and seperate schema and data files
-    
     dir_path = os.path.join(os.path.realpath("."), "data_drop")
     for fileName in os.listdir(dir_path):
         realFilePath = os.path.join(dir_path, fileName)
@@ -46,10 +45,8 @@ def main():
         reader = csv.reader(file)
         for row in reader:
             temp = []
-            
             #For each of the row, look at schema width and trim end to match width,
             #It follows the same pattern for numeric values.
-            
             for r, w in zip(row, width):
                 temp.append(r[:w])
             datas.append(tuple(temp))
