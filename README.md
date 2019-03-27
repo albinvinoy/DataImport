@@ -38,14 +38,16 @@ python test.py -u userName -p password -l hostName -d databaseName -t tableName
 
 Enter connection details and table name
 
-optional arguments:
-  -h, --help       show this help message and exit
-  -u userName      User name associated with MySql datbase
-  -p password      Password used to connect to MySql database
-  -l hostName      Name used to connect to MySql database
-  -d databaseName  Name of the database where table should be created
-  -t tableName     Name of the database table
+- optional arguments:
+-  -h, --help       show this help message and exit
+-  -u userName      User name associated with MySql datbase
+-  -p password      Password used to connect to MySql database
+-  -l hostName      Name used to connect to MySql database
+-  -d databaseName  Name of the database where table should be created
+-  -t tableName     Name of the database table
 
 If all tests pass then it prints "Test case passed"
+
 If any test fails then it prints "Test case failed"
+
 If there are any connection errors then error message will be displayed
