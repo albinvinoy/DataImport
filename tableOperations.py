@@ -2,10 +2,7 @@ import mysql.connector as msql
 
 
 class connectionProperty:
-    """
-    Class that creates a connection to database
-    """
-
+    #Class that creates a connection to database
     def __init__(self, userName, passw, host, databaseName):
         self.name = userName
         self.password = passw
@@ -13,6 +10,8 @@ class connectionProperty:
         self.database = databaseName
    
     def checkConnectionStatus(self):
+        #return -> True or False
+        #check if connection is successful
         try:
             self.getConnection()
             return True
@@ -21,6 +20,8 @@ class connectionProperty:
             return False
 
     def getConnection(self):
+        #return -> connection object
+        #Create connection
         conn = msql.connect(
             host=self.host,
             user = self.name,
@@ -30,24 +31,37 @@ class connectionProperty:
         return conn
 
     def createTable(self, tableName, data):
+        #create table in database with given parameters
+        #open connection, try and execute query and then return Boolean
         query = "CREATE TABLE IF NOT EXISTS {} ({})".format(
             tableName, ",".join(data))
         conn = self.getConnection()
-        if conn is None:
-            print("Failed to connect to database")
-            return
         cur = conn.cursor()
-        cur.execute(query)
-        cur.close()
-        conn.close()
+        try:
+            cur.execute(query)
+            return True
+        except Exception as e:
+            print("Failed to create {} table with schema.\n Detailed Error : {}".format(tableName, str(e)))
+            return False
+        finally:
+            cur.close()
+            conn.close()
 
     def insertData(self, tableName, tableSchema, combinedTables):
+        #insert data into give tableName 
+        #open connection, try and execute query and then return Boolean
         conn = self.getConnection()
         cur = conn.cursor()
-        for values in combinedTables:
-            query = "INSERT INTO {}({}) VALUES {}".format(
-                tableName, tableSchema, values)
-            cur.execute(query)
+        try:
+            for values in combinedTables:
+                query = "INSERT INTO {}({}) VALUES {}".format(
+                    tableName, tableSchema, values)
+                cur.execute(query)
             conn.commit()
-        cur.close()
-        conn.close()
+            return True
+        except Exception as e:
+            print("Failed to insert data into {} table.\n Detailed Error : {}".format(tableName, str(e)))
+            return False
+        finally:
+            cur.close()
+            conn.close()
